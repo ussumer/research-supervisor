@@ -1,6 +1,8 @@
 {
   "name": "@ddd-research/dsh-research-supervisor",
-  "version": "0.2.0-rc.1",
+  "version": "0.2.0-rc.2",
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "publishConfig": { "access": "public" },
   "license": "MIT",
   "repository": { "type": "git", "url": "git+https://github.com/ussumer/research-supervisor.git" },
   "homepage": "https://github.com/ussumer/research-supervisor#readme",
@@ -10,7 +12,7 @@
   "engines": { "node": ">=24.9", "dsh": "0.2.1-rc.5" },
   "main": "./lib/index.js",
   "exports": { ".": "./lib/index.js", "./package.json": "./package.json" },
-  "files": ["lib", "src/*.ts", "tests/*.mjs", "scripts/*.mjs", "README.md", "CHANGELOG.md", "INSTALL-AGENT.md", "examples"],
+  "files": ["cordis.patch.yml", "lib", "src/*.ts", "tests/*.mjs", "scripts/*.mjs", "README.md", "CHANGELOG.md", "INSTALL-AGENT.md", "examples"],
   "scripts": {
     "build": "node scripts/build.mjs",
     "pretest": "npm run build",

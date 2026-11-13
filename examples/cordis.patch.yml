@@ -1,5 +1,5 @@
-- insert:
-    - id: research-supervisor
-      name: '@ddd-research/dsh-research-supervisor'
-      config:
-        projectDirectory: !!js process.env.DSH_RESEARCH_PROJECT_DIRECTORY
+# Optional profile override for the row already inserted by the bundle.
+# Replace this path; do not insert a second research-supervisor row.
+- id: research-supervisor
+  config:
+    projectDirectory: /absolute/path/research-state/project-001

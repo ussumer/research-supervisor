@@ -1,4 +1,4 @@
-# DSH Research Supervisor — 0.2.0-rc.1
+# DSH Research Supervisor — 0.2.0-rc.2
 
 用于 **DeepSeek Harness（DSH）** 的原生研究监管插件。不是 Claude Code 插件，不能直接装入 Claude Code 的插件面板。安装工作可以委托给 Claude Code 等有终端权限的 Agent。
 
@@ -33,7 +33,7 @@ npm install --global @deepseek-ai/dsh@0.2.1-rc.5
 
 ## 安装：独立 profile + 本地 tarball
 
-获得 `ddd-research-dsh-research-supervisor-0.2.0-rc.1.tgz`、`SHA256SUMS`、本 README 和 `INSTALL-AGENT.md`。在交付目录核对：
+获得 `ddd-research-dsh-research-supervisor-0.2.0-rc.2.tgz`、`SHA256SUMS`、本 README 和 `INSTALL-AGENT.md`。在交付目录核对：
 
 ```bash
 sha256sum -c SHA256SUMS
@@ -59,20 +59,26 @@ SHA256 仅检查传输完整性，不能替代对分发来源的信任。不要�
 2. 用 DSH 的 profile 包管理命令安装 tarball；将路径换成下载包的绝对路径。这会委托 pnpm 安装并可能联网下载 peer dependencies，不能保证完全离线：
 
 ```bash
-dsh plugin --profile research-supervisor add /absolute/path/ddd-research-dsh-research-supervisor-0.2.0-rc.1.tgz
+dsh plugin --profile research-supervisor add /absolute/path/ddd-research-dsh-research-supervisor-0.2.0-rc.2.tgz
 ```
 
-3. 创建一个新的项目状态目录，例如 `/absolute/path/research-state/project-001`，权限设为 `0700`。它必须在所有 `sources` 之外，二者不能互为祖先目录。profile 的 `cordis.patch.yml` 写入：
+安装器识别 `dsh.bundle.patch`，自动将本包加入 profile 的 `dsh.profile.bundles`；不需要手动 insert 插件。升级 rc.1 时，先移除原先手动 insert 的 research-supervisor 条目，避免重复 ID。
+
+3. 创建一个新的项目状态目录，例如 `/absolute/path/research-state/project-001`，权限设为 `0700`。它必须在所有 `sources` 之外，二者不能互为祖先目录。启动前设置：
+
+```bash
+export DSH_RESEARCH_PROJECT_DIRECTORY=/absolute/path/research-state/project-001
+```
+
+每次启动都需提供此变量；未配置时插件配置验证失败，不会自行选择 cwd 或 home 存放账本。也可以持久化到该 profile 的 `cordis.patch.yml`，覆盖 bundle 已插入的行（见 examples/cordis.patch.yml）：
 
 ```yaml
-- insert:
-    - id: research-supervisor
-      name: '@ddd-research/dsh-research-supervisor'
-      config:
-        projectDirectory: /absolute/path/research-state/project-001
+- id: research-supervisor
+  config:
+    projectDirectory: /absolute/path/research-state/project-001
 ```
 
-也可以使用 `examples/cordis.patch.yml` 中的 `DSH_RESEARCH_PROJECT_DIRECTORY` 环境变量形式，但必须在每次启动宿主时设置该变量。
+二选一即可；profile 覆盖优先于 bundle 环境变量。不要重复 insert。
 
 4. **不调用模型的配置检查**：
 
@@ -133,7 +139,7 @@ dsh --profile research-supervisor
 
 先 `/research pause`，停止当前专用 profile，备份整个项目状态目录；然后在该 profile 安装新 tarball、检查配置并重新启动。不要在已有写者运行时替换包。
 
-回退时在停止宿主后安装旧 tarball，并使用对应升级前状态备份；不要假定老版本能读懂新状态。`0.2.0-rc.1` 尚无跨版本状态迁移保证。停止/卸载插件不会自动删除论文、工作目录、快照或账本。
+回退时在停止宿主后安装旧 tarball，并使用对应升级前状态备份；不要假定老版本能读懂新状态。`0.2.0-rc.2` 尚无跨版本状态迁移保证。停止/卸载插件不会自动删除论文、工作目录、快照或账本。
 
 ## 构建、测试与打包（开发者）
 

@@ -4,11 +4,11 @@
 
 ---
 
-请在我的机器上安装 **DSH Research Supervisor 0.2.0-rc.1**。这是 DeepSeek Harness（DSH）的 Cordis 插件，不是 Claude Code 插件。请实际完成安装、配置检查和可行的加载检查，不要只给建议。
+请在我的机器上安装 **DSH Research Supervisor 0.2.0-rc.2**。这是 DeepSeek Harness（DSH）的 Cordis 插件，不是 Claude Code 插件。请实际完成安装、配置检查和可行的加载检查，不要只给建议。
 
 ## 输入
 
-- 安装包：`<替换为 ddd-research-dsh-research-supervisor-0.2.0-rc.1.tgz 的绝对路径>`
+- 安装包：`<替换为 ddd-research-dsh-research-supervisor-0.2.0-rc.2.tgz 的绝对路径>`
 - 校验文件：`<替换为 SHA256SUMS 的绝对路径>`
 - 插件 README：随包文档。
 - 专用 profile 名：`research-supervisor`（如果已存在，先检查并备份，不覆盖现有配置）。
@@ -20,7 +20,7 @@
 2. 检查 tarball 的 SHA256 与文件清单：应包含 package.json、MIT LICENSE、lib 的 7 个 JS 模块、src 的 7 个 TS 源文件、tests、scripts、README/CHANGELOG/INSTALL-AGENT 文档和 examples。若含凭据、运行账本或意外代码，停止并报告。解压到新建的独立暂存目录，不在解压目录执行构建脚本。
 3. 使用我的 DSH_HOME（如未设置，使用宿主默认值），创建专用 profile。package.json 的 dsh.profile.bundles 使用 `@deepseek-ai/dsh-base` 和 `@deepseek-ai/dsh-web-app`。
 4. 使用 `dsh plugin --profile research-supervisor add <安装包绝对路径>` 安装，而不是把 tgz 当作 Claude Code 插件，也不要只把 TS 源码复制到某个目录。允许为本次 profile 安装依赖；不修改其他 profile、不使用 `--force` 绕过 peer dependency 不兼容。
-5. 创建权限为 0700 的新 projectDirectory，并在该 profile 的 cordis.patch.yml 添加 `research-supervisor` 条目（name 为 `@ddd-research/dsh-research-supervisor`，config.projectDirectory 为上述绝对路径）。已有 patch 要做最小合并，不覆盖宿主模型/账号/sandbox 配置。
+5. 检查安装器已自动将本包加入 dsh.profile.bundles。创建权限为 0700 的新 projectDirectory；启动时设置 DSH_RESEARCH_PROJECT_DIRECTORY，或在 profile patch 用 `id: research-supervisor` 覆盖 config.projectDirectory（见 examples）。不要重复 insert。由 rc.1 升级时先备份并移除旧手动 insert 条目，保留其路径作为覆盖值。不要覆盖宿主模型/账号/sandbox 配置。
 6. 继承用户现有模型配置。不要索取、输出或复制明文 API key；如果新 profile 无法使用模型，仅报告缺项。不要通过关闭 compaction/pruning 或改成 danger-full-access 来绕过问题。
 7. 执行无模型调用的 `dsh --profile research-supervisor --dump-config`，本机检查插件条目及依赖；不要公开打印整份可能含敏感值的配置。
 8. 在不影响已有服务且只监听本机的条件下尝试启动专用 profile。若需要停止服务、处理端口冲突或改变安全设置，先问我。通过 DSH 界面执行 `/research status` 验证命令挂载。如果你的环境无法操作 UI，明确标记“配置检查通过，运行时命令尚未验证”，给出我手动操作的步骤，不得假报验收成功。

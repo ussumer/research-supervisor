@@ -1,0 +1,7 @@
+# Required at host startup, or override this row's config in the profile patch.
+# No implicit cwd/home fallback: separate projects must not share state by accident.
+- insert:
+    - id: research-supervisor
+      name: '@ddd-research/dsh-research-supervisor'
+      config:
+        projectDirectory: !!js process.env.DSH_RESEARCH_PROJECT_DIRECTORY

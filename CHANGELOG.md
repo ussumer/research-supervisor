@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0-rc.2 — 2026-11-13
+
+- 添加标准 `dsh.bundle.patch` 和根目录 `cordis.patch.yml`，安装器自动加入 profile bundles。
+- 必须显式设置 `DSH_RESEARCH_PROJECT_DIRECTORY` 或 profile config override；无隐式共享状态目录。
+- 增加真实安装/重复安装/移除、环境配置和 profile override 的包验收。
+- MIT 许可证，源码仓库 https://github.com/ussumer/research-supervisor 。尚未发布 npm registry。
+- 从 rc.1 升级：删除旧手工 insert 行，以 id override 保留原项目目录，避免重复插件实例。
+
 ## 0.2.0-rc.1 — 2026-11-13
 
 内部 tarball 预发布，兼容 DSH 0.2.1-rc.5 / Node >=24.9。未发布公共 npm 包。
