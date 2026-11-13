@@ -1,0 +1,34 @@
+{
+  "name": "@ddd-research/dsh-research-supervisor",
+  "version": "0.2.0-rc.1",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/ussumer/research-supervisor.git" },
+  "homepage": "https://github.com/ussumer/research-supervisor#readme",
+  "bugs": { "url": "https://github.com/ussumer/research-supervisor/issues" },
+  "type": "module",
+  "description": "Native DSH research supervision with reviewed plans and sealed evidence",
+  "engines": { "node": ">=24.9", "dsh": "0.2.1-rc.5" },
+  "main": "./lib/index.js",
+  "exports": { ".": "./lib/index.js", "./package.json": "./package.json" },
+  "files": ["lib", "src/*.ts", "tests/*.mjs", "scripts/*.mjs", "README.md", "CHANGELOG.md", "INSTALL-AGENT.md", "examples"],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "pretest": "npm run build",
+    "test": "node --test tests/*.test.mjs",
+    "prepack": "npm test",
+    "verify-package": "node scripts/verify-package.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.5",
+    "@deepseek-ai/schemastery": "~3.18.5",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-bash-sandbox": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-commands": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-session-query": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-sandbox-policy": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-subagent": "0.2.1-rc.5",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.5"
+  }
+}

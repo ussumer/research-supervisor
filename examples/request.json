@@ -1,0 +1,7 @@
+{
+  "goal": "Replace with an explicitly bounded paper-reproduction goal, numerical settings, verification tolerances and permitted compute budget.",
+  "sources": ["/absolute/path/to/read-only-paper-materials"],
+  "deadline": "REPLACE_WITH_APPROVED_FUTURE_ISO_TIMESTAMP",
+  "maxReplans": 2,
+  "producerContext": "full"
+}

@@ -1,0 +1,5 @@
+- insert:
+    - id: research-supervisor
+      name: '@ddd-research/dsh-research-supervisor'
+      config:
+        projectDirectory: !!js process.env.DSH_RESEARCH_PROJECT_DIRECTORY

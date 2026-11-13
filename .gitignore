@@ -1,0 +1,8 @@
+/dist/
+/.pack-smoke-*/
+/node_modules/
+/lib/
+/.native-test-*/
+/src/src.zip
+.env
+.env.*
